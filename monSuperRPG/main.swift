@@ -9,7 +9,7 @@
 class Team {
     let teamColor: String
     let playerName: String
-    
+    var team = [Character]()
     
     init(teamColor: String) {
         self.teamColor = teamColor
@@ -25,6 +25,33 @@ class Team {
         
         self.playerName = line
         print("L'équipe \(self.teamColor) appartient à \(self.playerName)")
+        
+        //  creating team : asking which characters are wanted
+        for _ in 0...2 {
+        print("Quel type de guerrier voulez-vous utiliser ?"
+            + "\n1. simple combattant"
+            + "\n2. mage"
+            + "\n3. colosse"
+            + "\n4. nain")
+        line = ""
+        while line != "1" && line != "2" && line != "3" && line != "4" {
+            print("Veuillez indiquez votre choix (1, 2, ...)")
+            line = readLine()!
+        }
+        switch line {
+        case "1":
+            team.append(Fighter())
+        case "2":
+            team.append(Mage())
+        case "3":
+            team.append(Colossus())
+        case "4":
+            team.append(Dwarf())
+        default:
+            print("Erreur inconnue")
+        }
+        
+        }
     }
 }
 
@@ -34,11 +61,22 @@ class Team {
 class Character {
     let life: Int
     let maxLife: Int
+    let name: String
     
     init(maxLife: Int) {
 //        When init, considering Character has all his life
         self.maxLife = maxLife
         self.life = maxLife
+        
+        //Asking Chazracter name : if no answer, asking again
+        print("Nom du personnage :")
+        var line = readLine()!
+        while line == "" {
+            print("Merci de remplir le nom !")
+            line = readLine()!
+        }
+        
+        self.name = line
     }
 }
 
@@ -102,7 +140,7 @@ class Punch: Weapon {
 
 class SpellOn: Weapon {
     override init(name: String, damage: Int) {
-        super.init(name: <#T##String#>, damage: <#T##Int#>)
+        super.init(name: name, damage: damage)
     }
 }
 
@@ -124,3 +162,4 @@ class Treat: SpellOn {
 var redTeam = Team(teamColor: "rouge")
 print("")
 var blueTeam = Team(teamColor: "bleue")
+
