@@ -15,7 +15,7 @@ class Team {
         self.teamColor = teamColor
         print("Création de l'équipe \(teamColor)")
         
-        //Je demande le nom du joueur, s'il ne répond rien, il doit réécrire son nom
+        //Asking player name : if no answer, asking again
         print("Nom du joueur \(self.teamColor) :")
         var line = readLine()!
         while line == "" {
@@ -28,13 +28,15 @@ class Team {
     }
 }
 
-// Création des personnages
+//
+// Characters creation
+//
 class Character {
     let life: Int
     let maxLife: Int
     
     init(maxLife: Int) {
-//        Lors de l'initialisation, on considère que le personnage a toute sa vie.
+//        When init, considering Character has all his life
         self.maxLife = maxLife
         self.life = maxLife
     }
@@ -48,7 +50,7 @@ class Fighter: Character {
 }
 
 class Mage: Character {
-    //    Bonus : Le mage est capable d'utiliser la fonction Copier/Coller Une fois dans la partie, Il devient l'un des personnages de l'équipe adverse jusqu'à la fin de la partie (C'est un copier/coller complet : Il reprend toutes les propriétés du personnage adverse
+    //    Bonus : The mage is able to use the function Copy / Paste Once in the game, He becomes one of the characters of the opposing team until the end of the game (It is a complete copy / paste: It takes all the properties of the opposing character
     init() {
         super.init(maxLife: 50)
     }
@@ -66,12 +68,14 @@ class Dwarf: Character {
     }
 }
 
+//
+//  Creating weapons
+//
+
 
 //
-//  Début de la partie, création de 2 équipes : rouge et bleue
+//  Session starting : Creating 2 teams, red and blue
 //
 var redTeam = Team(teamColor: "rouge")
 print("")
 var blueTeam = Team(teamColor: "bleue")
-
-//Mon bonus sera un mage capable d'échanger des combattants d'une équipe à l'autre
