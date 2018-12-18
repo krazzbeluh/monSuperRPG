@@ -72,9 +72,54 @@ class Dwarf: Character {
 //  Creating weapons
 //
 
+class Weapon {
+    let name: String
+    let damage: Int
+    
+    init(name: String, damage: Int) {
+        self.name = name
+        self.damage = damage
+    }
+}
+
+class Sword: Weapon {
+    init() {
+        super.init(name: "Épée", damage: 10)
+    }
+}
+
+class Axe: Weapon {
+    init() {
+        super.init(name: "Hache", damage: 30)
+    }
+}
+
+class Punch: Weapon {
+    init() {
+        super.init(name: "Coup de poing", damage: 3)
+    }
+}
+
+class SpellOn: Weapon {
+    override init(name: String, damage: Int) {
+        super.init(name: <#T##String#>, damage: <#T##Int#>)
+    }
+}
+
+class CopyPaste: SpellOn {
+    init() {
+        super.init(name: "Copier/Coller", damage: 0)
+    }
+}
+
+class Treat: SpellOn {
+    init() {
+        super.init(name: "Soin", damage: 0)
+    }
+}
 
 //
-//  Session starting : Creating 2 teams, red and blue
+//  Game starting : Creating 2 teams, red and blue
 //
 var redTeam = Team(teamColor: "rouge")
 print("")
