@@ -83,7 +83,16 @@ class Character {
     }
     
     func attack(defender: Character) {
-        defender.life -= self.weapon.damage
+        print("0")
+        if (self.life > 0) {
+            print("1")
+            defender.life -= self.weapon.damage
+            if defender.life <= 0 {
+                defender.life = 0
+            }
+        } else {
+            print("Erreur : Le personnage selectionné est mort")
+        }
     }
 }
 
@@ -139,7 +148,7 @@ class Sword: Weapon {
 
 class Axe: Weapon {
     init() {
-        super.init(name: "Hache", damage: 30)
+        super.init(name: "Hache", damage: 15)
     }
 }
 
@@ -159,30 +168,51 @@ class SpellOn: Weapon {
 func action(team: Team, ennemy: Team){
     var message = ""
     for i in 0...2 {
-        if team.team[i].life > 0 {
-            message += "\n\(i+1). \(team.team[i].name) : \(team.team[i].life) / \(team.team[i].maxLife) PV"
+        message += "\n\(i+1). \(team.team[i].name) : \(team.team[i].life) / \(team.team[i].maxLife) PV"
+        if team.team[i].life <= 0 {
+            message += " => mort"
         }
     }
     print("\(team.playerName), quel personnage voulez-vous utiliser ?" + message)
+    var line = readLine()!
+    var check = false
+    var attacker = 0
+    while check == false {
+        while line != "1" && line != "2" && line != "3" {
+            line = readLine()!
+        }
+        attacker = Int(line)!-1
+        if team.team[attacker].life > 0 {
+            check = true
+        } else {
+            print("Veuillez choisir un personnage vivant")
+            line = ""
+        }
+    }
     
     message = ""
     for i in 0...2 {
-        if ennemy.team[i].life > 0 {
-            message += "\n\(i+1). \(ennemy.team[i].name) : \(ennemy.team[i].life) / \(ennemy.team[i].maxLife) PV"
+        message += "\n\(i+1). \(ennemy.team[i].name) : \(ennemy.team[i].life) / \(ennemy.team[i].maxLife) PV"
+        if ennemy.team[i].life <= 0 {
+            message += " => Ce personnage est mort"
         }
     }
-    var line = readLine()!
-    while line != "1" && line != "2" && line != "3" {
-        line = readLine()!
-    }
-    let attacker = Int(line)!-1
     print("\(team.playerName), quel personnage souhaitez-vous attaquer ?" + message)
     line = readLine()!
-    while line != "1" && line != "2" && line != "3" {
-        line = readLine()!
+    check = false
+    while check == false {
+        while line != "1" && line != "2" && line != "3" {
+            line = readLine()!
+        }
+        let defender = Int(line)!-1
+        if (ennemy.team[defender].life > 0) {
+            team.team[attacker].attack(defender: ennemy.team[defender])
+            check = true
+        } else {
+            print("Veuillez choisir un personnage vivant")
+            line = ""
+        }
     }
-    let defender = Int(line)!-1
-    team.team[attacker].attack(defender: ennemy.team[defender])
 }
 
 //
