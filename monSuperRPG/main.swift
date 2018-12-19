@@ -59,14 +59,17 @@ class Team {
 // Characters creation
 //
 class Character {
-    let life: Int
+    var life: Int
     let maxLife: Int
     let name: String
+    let weapon: Weapon
     
-    init(maxLife: Int) {
+    init(maxLife: Int, weapon: Weapon) {
 //        When init, considering Character has all his life
         self.maxLife = maxLife
         self.life = maxLife
+        
+        self.weapon = weapon
         
         //Asking Chazracter name : if no answer, asking again
         print("Nom du personnage :")
@@ -78,11 +81,16 @@ class Character {
         
         self.name = line
     }
+    
+    func attack(defender: Character) {
+        defender.life -= self.weapon.damage
+    }
 }
 
 class Fighter: Character {
     init() {
-        super.init(maxLife: 100)
+        let sword = Sword()
+        super.init(maxLife: 100, weapon: sword)
     }
     
 }
@@ -90,19 +98,22 @@ class Fighter: Character {
 class Mage: Character {
     //    Bonus : The mage is able to use the function Copy / Paste Once in the game, He becomes one of the characters of the opposing team until the end of the game (It is a complete copy / paste: It takes all the properties of the opposing character
     init() {
-        super.init(maxLife: 50)
+        let spellOn = SpellOn()
+        super.init(maxLife: 50, weapon: spellOn)
     }
 }
 
 class Colossus: Character {
     init() {
-        super.init(maxLife: 1500)
+        let punch = Punch()
+        super.init(maxLife: 1500, weapon: punch)
     }
 }
 
 class Dwarf: Character {
     init() {
-        super.init(maxLife: 30)
+        let axe = Axe()
+        super.init(maxLife: 30, weapon: axe)
     }
 }
 
@@ -139,21 +150,39 @@ class Punch: Weapon {
 }
 
 class SpellOn: Weapon {
-    override init(name: String, damage: Int) {
-        super.init(name: name, damage: damage)
+    init() {
+        super.init(name: "Sort", damage: 0)
     }
 }
 
-class CopyPaste: SpellOn {
-    init() {
-        super.init(name: "Copier/Coller", damage: 0)
+//  This function will be usefull in the game (it makes actions for one selected team)
+func action(team: Team, ennemy: Team){
+    var message = ""
+    for i in 0...2 {
+        if team.team[i].life > 0 {
+            message += "\n\(i+1). \(team.team[i].name) : \(team.team[i].life) / \(team.team[i].maxLife) PV"
+        }
     }
-}
-
-class Treat: SpellOn {
-    init() {
-        super.init(name: "Soin", damage: 0)
+    print("\(team.playerName), quel personnage voulez-vous utiliser ?" + message)
+    
+    message = ""
+    for i in 0...2 {
+        if ennemy.team[i].life > 0 {
+            message += "\n\(i+1). \(ennemy.team[i].name) : \(ennemy.team[i].life) / \(ennemy.team[i].maxLife) PV"
+        }
     }
+    var line = readLine()!
+    while line != "1" && line != "2" && line != "3" {
+        line = readLine()!
+    }
+    let attacker = Int(line)!-1
+    print("\(team.playerName), quel personnage souhaitez-vous attaquer ?" + message)
+    line = readLine()!
+    while line != "1" && line != "2" && line != "3" {
+        line = readLine()!
+    }
+    let defender = Int(line)!-1
+    team.team[attacker].attack(defender: ennemy.team[defender])
 }
 
 //
@@ -163,3 +192,16 @@ var redTeam = Team(teamColor: "rouge")
 print("")
 var blueTeam = Team(teamColor: "bleue")
 
+
+// executing fight while a team contains at least 1 alive character
+var redPlayer = true
+var message: String
+while redTeam.team[0].life > 0 || redTeam.team[1].life > 0 || redTeam.team[2].life > 0 && blueTeam.team[0].life > 0 || blueTeam.team[1].life > 0 || blueTeam.team[2].life > 0 {
+    if redPlayer == true {
+        action(team: redTeam, ennemy: blueTeam)
+        redPlayer = false
+    } else {
+        action(team: blueTeam, ennemy: redTeam)
+        redPlayer = true
+    }
+}
