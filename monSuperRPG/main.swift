@@ -228,9 +228,11 @@ var redPlayer = true
 var message: String
 while redTeam.team[0].life > 0 || redTeam.team[1].life > 0 || redTeam.team[2].life > 0 && blueTeam.team[0].life > 0 || blueTeam.team[1].life > 0 || blueTeam.team[2].life > 0 {
     if redPlayer == true {
+        print("\u{001B}[0;31m")
         action(team: redTeam, ennemy: blueTeam)
         redPlayer = false
     } else {
+        print("\u{001B}[0;34m")
         action(team: blueTeam, ennemy: redTeam)
         redPlayer = true
     }
