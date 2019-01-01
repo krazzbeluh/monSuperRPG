@@ -7,104 +7,63 @@
 //
 
 
+let game = Game(players: 2)
 
+//for i in 1 ... 2 {
+//    print("Nom du joueur 1 :")
+//    while loop == true || choice == "" {
+//        if let line = readLine() {
+//            choice = line
+//            loop = false
+//        }
+//    }
+//    for _ in 0 ... 2 {
+//        print("Quel type de guerrier voulez-vous utiliser ?"
+//            + "\n1. simple combattant"
+//            + "\n2. mage"
+//            + "\n3. colosse"
+//            + "\n4. nain")
+//        var loop = true
+//        var choice = ""
+//        while loop == true || choice != "1" && choice != "2" && choice != "3" && choice != "4"{
+//            loop = true
+//            if let line = readLine() {
+//                choice = line
+//                loop = false
+//            }
+//        }
 //
-// Characters creation
+//        loop = true
+//        choice = ""
+//        print("Comment voulez-vous appeler votre guerrier ?")
+//        while loop == true || choice == ""{
+//            loop = true
+//            if let line = readLine() {
+//                choice = line
+//                loop = false
+//            }
+//        }
 //
-
-
-
-
-
-
-
-
-
-
+//        switch choice{
+//        case "1":
+//            charactersTeam1.append(Fighter(name: choice))
+//        case "2":
+//            charactersTeam1.append(Mage(name: choice))
+//        case "3":
+//            charactersTeam1.append(Colossus(name: choice))
+//        case "4":
+//            charactersTeam1.append(Dwarf(name: choice))
+//        default:
+//            print("Erreur : Le choix n'est pas valide")
+//        }
+//    }
 //
-//  Creating weapons
+//    if i == 1 {
+//        team1 = Team(playerName: choice, characters: charactersTeam1)
+//    } else {
+//        team2 = Team(playerName: choice, characters: charactersTeam2)
+//    }
+//}
 //
-
-
-
-
-
-
-
-
-
-
-
-//  This function will be usefull in the game (it makes actions for one selected team)
-func action(team: Team, ennemy: Team){
-    var message = ""
-    for i in 0...2 {
-        message += "\n\(i+1). \(team.team[i].name) : \(team.team[i].life) / \(team.team[i].maxLife) PV"
-        if team.team[i].life <= 0 {
-            message += " => mort"
-        }
-    }
-    print("\(team.playerName), quel personnage voulez-vous utiliser ?" + message)
-    var line = readLine()!
-    var check = false
-    var attacker = 0
-    while check == false {
-        while line != "1" && line != "2" && line != "3" {
-            line = readLine()!
-        }
-        attacker = Int(line)!-1
-        if team.team[attacker].life > 0 {
-            check = true
-        } else {
-            print("Veuillez choisir un personnage vivant")
-            line = ""
-        }
-    }
-    
-    message = ""
-    for i in 0...2 {
-        message += "\n\(i+1). \(ennemy.team[i].name) : \(ennemy.team[i].life) / \(ennemy.team[i].maxLife) PV"
-        if ennemy.team[i].life <= 0 {
-            message += " => Ce personnage est mort"
-        }
-    }
-    print("\(team.playerName), quel personnage souhaitez-vous attaquer ?" + message)
-    line = readLine()!
-    check = false
-    while check == false {
-        while line != "1" && line != "2" && line != "3" {
-            line = readLine()!
-        }
-        let defender = Int(line)!-1
-        if (ennemy.team[defender].life > 0) {
-            team.team[attacker].attack(defender: ennemy.team[defender])
-            check = true
-        } else {
-            print("Veuillez choisir un personnage vivant")
-            line = ""
-        }
-    }
-}
-
-//
-//  Game starting : Creating 2 teams, red and blue
-//
-var redTeam = Team(teamColor: "rouge")
-print("")
-var blueTeam = Team(teamColor: "bleue")
-
-
-// executing fight while a team contains at least 1 alive character
-var redPlayer = true
-var message: String
-while redTeam.team[0].life > 0 || redTeam.team[1].life > 0 || redTeam.team[2].life > 0 && blueTeam.team[0].life > 0 || blueTeam.team[1].life > 0 || blueTeam.team[2].life > 0 {
-    if redPlayer == true {
-        print("\u{001B}[0;31m")
-        action(team: redTeam, ennemy: blueTeam)
-        redPlayer = false
-    } else {
-        print("\u{001B}[0;34m")
-        action(team: blueTeam, ennemy: redTeam)
-        redPlayer = true
-    }
-}
+//while redTeam.team[0].life > 0 || redTeam.team[1].life > 0 || redTeam.team[2].life > 0 && blueTeam.team[0].life > 0 || blueTeam.team[1].life > 0 || blueTeam.team[2].life > 0 {
+//}

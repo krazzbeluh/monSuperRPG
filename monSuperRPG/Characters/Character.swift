@@ -13,22 +13,12 @@ class Character {
     let name: String
     let weapon: Weapon
     
-    init(maxLife: Int, weapon: Weapon) {
+    init(maxLife: Int, weapon: Weapon, name: String) {
         //        When init, considering Character has all his life
         self.maxLife = maxLife
         self.life = maxLife
-        
+        self.name = name
         self.weapon = weapon
-        
-        //Asking Chazracter name : if no answer, asking again
-        print("Nom du personnage :")
-        var line = readLine()!
-        while line == "" {
-            print("Merci de remplir le nom !")
-            line = readLine()!
-        }
-        
-        self.name = line
     }
     
     func attack(defender: Character) {

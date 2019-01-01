@@ -8,8 +8,8 @@
 
 import Foundation
 class Colossus: Character {
-    init() {
+    init(name: String) {
         let punch = Punch()
-        super.init(maxLife: 1500, weapon: punch)
+        super.init(maxLife: 1500, weapon: punch, name: name)
     }
 }

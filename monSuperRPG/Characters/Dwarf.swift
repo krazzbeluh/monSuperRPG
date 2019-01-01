@@ -8,8 +8,8 @@
 
 import Foundation
 class Dwarf: Character {
-    init() {
+    init(name: String) {
         let axe = Axe()
-        super.init(maxLife: 30, weapon: axe)
+        super.init(maxLife: 30, weapon: axe, name: name)
     }
 }
