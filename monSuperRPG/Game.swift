@@ -44,25 +44,25 @@ class Game {
                         }
                 
                         loop = true
-                        choice = ""
+                        var name = ""
                         print("Comment voulez-vous appeler votre guerrier ?")
                         while loop == true || choice == ""{
                             loop = true
                             if let line = readLine() {
-                                choice = line
+                                name = line
                                 loop = false
                             }
                         }
                 
                         switch choice{
                         case "1":
-                            characters.append(Fighter(name: choice))
+                            characters.append(Fighter(name: name))
                         case "2":
-                            characters.append(Mage(name: choice))
+                            characters.append(Mage(name: name))
                         case "3":
-                            characters.append(Colossus(name: choice))
+                            characters.append(Colossus(name: name))
                         case "4":
-                            characters.append(Dwarf(name: choice))
+                            characters.append(Dwarf(name: name))
                         default:
                             print("Erreur : Le choix n'est pas valide")
                         }
@@ -122,15 +122,15 @@ class Game {
         var message = ""
         var countDead = 0
         var lastAlive = ""
-        for i in 0 ... players {
+        for i in 0 ... players - 1 {
             if teams[i].alive == false {
-                message += "\(teams[i].playerName) est éliminé \n"
+                message += "\n1\(teams[i].playerName) est éliminé \n"
                 countDead += 1
             } else {
                 lastAlive = teams[i].playerName
-                message += "Équipe de \(teams[i].playerName) :\n"
+                message += "\nÉquipe de \(teams[i].playerName) :\n"
                 for j in 0 ... 2 {
-                    message += "    \(teams[i].characters[j].job) \(teams[i].characters[j].name) => \(teams[i].characters[j].life)/\(teams[i].characters[j].maxLife)"
+                    message += "    \(teams[i].characters[j].job) \(teams[i].characters[j].name) => \(teams[i].characters[j].life)/\(teams[i].characters[j].maxLife)\n"
                 }
             }
         }
