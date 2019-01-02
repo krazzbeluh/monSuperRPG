@@ -10,6 +10,6 @@ import Foundation
 class Mage: Character {
     init(name: String) {
         let spellOn = SpellOn()
-        super.init(maxLife: 50, weapon: spellOn, name: name)
+        super.init(maxLife: 50, weapon: spellOn, name: name, job: "Mage")
     }
 }

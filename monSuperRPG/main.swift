@@ -42,5 +42,7 @@ while game.teams[0].characters[0].life > 0 || game.teams[0].characters[1].life >
             playerTurn = 1
         }
     }
+    
+    print(game.getStatus())
 }
 print("Partie terminée")

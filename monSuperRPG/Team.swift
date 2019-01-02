@@ -10,6 +10,7 @@ import Foundation
 class Team {
     let playerName: String
     var characters = [Character]()
+    var alive = true
     
     init(playerName: String, characters: [Character]) {
         self.playerName = playerName

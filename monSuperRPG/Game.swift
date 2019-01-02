@@ -117,4 +117,27 @@ class Game {
         }
         return(0)
     }
+    
+    func getStatus() -> String {
+        var message = ""
+        var countDead = 0
+        var lastAlive = ""
+        for i in 0 ... players {
+            if teams[i].alive == false {
+                message += "\(teams[i].playerName) est éliminé \n"
+                countDead += 1
+            } else {
+                lastAlive = teams[i].playerName
+                message += "Équipe de \(teams[i].playerName) :\n"
+                for j in 0 ... 2 {
+                    message += "    \(teams[i].characters[j].job) \(teams[i].characters[j].name) => \(teams[i].characters[j].life)/\(teams[i].characters[j].maxLife)"
+                }
+            }
+        }
+        
+        if countDead == players - 1 {
+            message += "\n\n\(lastAlive) a gagné la partie !"
+        }
+        return message
+    }
 }
