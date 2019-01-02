@@ -8,62 +8,39 @@
 
 
 let game = Game(players: 2)
+var playerTurn = 1
 
-//for i in 1 ... 2 {
-//    print("Nom du joueur 1 :")
-//    while loop == true || choice == "" {
-//        if let line = readLine() {
-//            choice = line
-//            loop = false
-//        }
-//    }
-//    for _ in 0 ... 2 {
-//        print("Quel type de guerrier voulez-vous utiliser ?"
-//            + "\n1. simple combattant"
-//            + "\n2. mage"
-//            + "\n3. colosse"
-//            + "\n4. nain")
-//        var loop = true
-//        var choice = ""
-//        while loop == true || choice != "1" && choice != "2" && choice != "3" && choice != "4"{
-//            loop = true
-//            if let line = readLine() {
-//                choice = line
-//                loop = false
-//            }
-//        }
-//
-//        loop = true
-//        choice = ""
-//        print("Comment voulez-vous appeler votre guerrier ?")
-//        while loop == true || choice == ""{
-//            loop = true
-//            if let line = readLine() {
-//                choice = line
-//                loop = false
-//            }
-//        }
-//
-//        switch choice{
-//        case "1":
-//            charactersTeam1.append(Fighter(name: choice))
-//        case "2":
-//            charactersTeam1.append(Mage(name: choice))
-//        case "3":
-//            charactersTeam1.append(Colossus(name: choice))
-//        case "4":
-//            charactersTeam1.append(Dwarf(name: choice))
-//        default:
-//            print("Erreur : Le choix n'est pas valide")
-//        }
-//    }
-//
-//    if i == 1 {
-//        team1 = Team(playerName: choice, characters: charactersTeam1)
-//    } else {
-//        team2 = Team(playerName: choice, characters: charactersTeam2)
-//    }
-//}
-//
-//while redTeam.team[0].life > 0 || redTeam.team[1].life > 0 || redTeam.team[2].life > 0 && blueTeam.team[0].life > 0 || blueTeam.team[1].life > 0 || blueTeam.team[2].life > 0 {
-//}
+while game.teams[0].characters[0].life > 0 || game.teams[0].characters[1].life > 0 || game.teams[0].characters[2].life > 0 && game.teams[1].characters[0].life > 0 || game.teams[1].characters[1].life > 0 || game.teams[1].characters[2].life > 0 {
+    
+    let player = 1
+    let defender = 2
+    let target = 1
+    let attacker = 3
+    
+    let result = game.attack(playerNamed: player, defenderNamed: defender, targetNamed: target, attackerNamed: attacker)
+    switch result {
+    case 0:
+        print("\(game.teams[player].playerName) inflige \(game.teams[player].characters[attacker].weapon.damage) dégats à \(game.teams[defender].characters[target].name) avec la précieuse aide de \(game.teams[player].characters[attacker].name) et de son \(game.teams[player].characters[attacker].weapon.name)")
+    case 1:
+        print("\(game.teams[player].characters[attacker].name) a tué \(game.teams[defender])")
+    case 2:
+        print("ERREUR : Le joueur \(player) n'existe pas")
+    case 3:
+        print("ERREUR : Le joueur \(defender) n'existe pas")
+    case 4:
+        print("ERREUR : La cible spécifiée n'existe pas ou est déjà morte")
+    case 5:
+        print("ERREUR : L'attaquant spécifié n'existe pas ou est déjà mort")
+    default:
+        print("ERREUR : Erreur inconnue")
+    }
+    
+//    switching player if there's no error
+    if (result <= 1) {
+        playerTurn += 1
+        if playerTurn > game.players {
+            playerTurn = 1
+        }
+    }
+}
+print("Partie terminée")

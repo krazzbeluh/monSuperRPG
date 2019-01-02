@@ -9,7 +9,9 @@
 import Foundation
 class Game {
     var teams = [Team]()
+    let players: Int
     init(players: Int) {
+        self.players = players
         for i in 1 ... players {
             let playerName: String
             var characters = [Character]()
@@ -68,5 +70,51 @@ class Game {
             
             self.teams.append(Team(playerName: playerName, characters: characters))
         }
+    }
+    
+    func attack(playerNamed: Int, defenderNamed: Int, targetNamed: Int, attackerNamed: Int) -> Int {
+        let player: Int
+        let defender: Int
+        let target: Int
+        let attacker: Int
+        
+//        verifying given attributes
+        if playerNamed <= players {
+            player = playerNamed - 1
+        } else {
+            return(2)
+        }
+        
+        if defenderNamed <= players {
+            defender = defenderNamed - 1
+        } else {
+            return(3)
+        }
+        
+        if targetNamed - 1 <= teams[defender].characters.count {
+            target = targetNamed - 1
+            if (teams[defender].characters[target].life <= 0) {
+                return 4
+            }
+        } else {
+            return(4)
+        }
+        
+        if attackerNamed - 1 <= teams[player].characters.count {
+            attacker = attackerNamed - 1
+            if (teams[player].characters[attacker].life <= 0) {
+                return(5)
+            }
+        } else {
+            return(5)
+        }
+        
+//        making attack
+        teams[player].characters[attacker].attack(defender: teams[defender].characters[target])
+        if (teams[defender].characters[target].life <= 0) {
+            teams[defender].characters[target].life = 0
+            return(1)
+        }
+        return(0)
     }
 }
