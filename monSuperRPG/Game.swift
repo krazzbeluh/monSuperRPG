@@ -74,8 +74,8 @@ class Game {
         let attacker: Int
         
 //        verifying given attributes
-        if playerNamed <= players {
-            player = playerNamed - 1
+        if playerNamed <= players - 1 {
+            player = playerNamed
         } else {
             return(2)
         }
@@ -137,13 +137,13 @@ class Game {
     }
     
     func start() {
-        var playerTurn = 1
+        var playerTurn = 0
         
         while teams[0].isAlive() && teams[1].isAlive() {
             
             let player = playerTurn
             
-            print("\(teams[playerTurn - 1].playerName), Quel joueur voulez-vous attaquer ?")
+            print("\(teams[player].playerName), Quel joueur voulez-vous attaquer ?")
             for i in 1 ... players {
                 print("\(i). \(teams[i - 1].playerName)")
             }
@@ -183,9 +183,9 @@ class Game {
             let result = attack(playerNamed: player, defenderNamed: defender, targetNamed: target, attackerNamed: attacker)
             switch result {
             case 0:
-                print("\(teams[player - 1].playerName) inflige \(teams[player - 1].characters[attacker - 1].weapon.damage) dégats à \(teams[defender - 1].characters[target - 1].name) avec la précieuse aide de \(teams[player - 1].characters[attacker - 1].name) et de son \(teams[player - 1].characters[attacker - 1].weapon.name)")
+                print("\(teams[player].playerName) inflige \(teams[player].characters[attacker - 1].weapon.damage) dégats à \(teams[defender - 1].characters[target - 1].name) avec la précieuse aide de \(teams[player].characters[attacker - 1].name) et de son \(teams[player].characters[attacker - 1].weapon.name)")
             case 1:
-                print("\(teams[player].characters[attacker].name) a tué \(teams[defender])")
+                print("\(teams[player].characters[attacker - 1].name) a tué \(teams[defender - 1])")
             case 2:
                 print("ERREUR : Le joueur \(player) n'existe pas")
             case 3:
@@ -201,8 +201,8 @@ class Game {
             //    switching player if there's no error
             if (result <= 1) {
                 playerTurn += 1
-                if playerTurn > players {
-                    playerTurn = 1
+                if playerTurn > players - 1 {
+                    playerTurn = 0
                 }
             }
             
