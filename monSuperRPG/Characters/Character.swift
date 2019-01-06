@@ -12,16 +12,14 @@ class Character {
     let maxLife: Int
     let name: String
     let weapon: Weapon
-    let job: String
     
     
-    init(maxLife: Int, weapon: Weapon, name: String, job: String) {
+    init(maxLife: Int, weapon: Weapon, name: String) {
         //        When init, considering Character has all his life
         self.maxLife = maxLife
         self.life = maxLife
         self.name = name
         self.weapon = weapon
-        self.job = job
     }
     
     func attack(defender: Character) {

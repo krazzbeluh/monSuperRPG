@@ -125,7 +125,19 @@ class Game {
                 lastAlive = teams[i].playerName
                 message += "\nÉquipe de \(teams[i].playerName) :\n"
                 for j in 0 ... 2 {
-                    message += "    \(teams[i].characters[j].job) \(teams[i].characters[j].name) => \(teams[i].characters[j].life)/\(teams[i].characters[j].maxLife)\n"
+                    let job: String
+                    if teams[i].characters[j] is Colossus {
+                        job = "Colosse"
+                    } else if teams[i].characters[j] is Dwarf {
+                        job = "Nain"
+                    } else if teams[i].characters[j] is Fighter {
+                        job = "Simple Combattant"
+                    } else if teams[i].characters[j] is Mage {
+                        job = "Mage"
+                    } else {
+                        job = "Type inconnu"
+                    }
+                    message += "    \(job) \(teams[i].characters[j].name) => \(teams[i].characters[j].life)/\(teams[i].characters[j].maxLife)\n"
                 }
             }
         }

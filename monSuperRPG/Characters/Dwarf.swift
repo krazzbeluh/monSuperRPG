@@ -10,6 +10,6 @@ import Foundation
 class Dwarf: Character {
     init(name: String) {
         let axe = Axe()
-        super.init(maxLife: 30, weapon: axe, name: name, job: "Nain")
+        super.init(maxLife: 30, weapon: axe, name: name)
     }
 }
