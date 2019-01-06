@@ -114,37 +114,11 @@ class Game {
     }
     
     func getStatus() -> String {
-        var message = ""
-        var countDead = 0
-        var lastAlive = ""
+        var message = "\n"
         for i in 0 ... players - 1 {
-            if !teams[i].isAlive() {
-                message += "\n1\(teams[i].playerName) est éliminé \n"
-                countDead += 1
-            } else {
-                lastAlive = teams[i].playerName
-                message += "\nÉquipe de \(teams[i].playerName) :\n"
-                for j in 0 ... 2 {
-                    let job: String
-                    if teams[i].characters[j] is Colossus {
-                        job = "Colosse"
-                    } else if teams[i].characters[j] is Dwarf {
-                        job = "Nain"
-                    } else if teams[i].characters[j] is Fighter {
-                        job = "Simple Combattant"
-                    } else if teams[i].characters[j] is Mage {
-                        job = "Mage"
-                    } else {
-                        job = "Type inconnu"
-                    }
-                    message += "    \(job) \(teams[i].characters[j].name) => \(teams[i].characters[j].life)/\(teams[i].characters[j].maxLife)\n"
-                }
-            }
+            message += "\n" + teams[i].getStatus()
         }
         
-        if countDead == players - 1 {
-            message += "\n\n\(lastAlive) a gagné la partie !"
-        }
         return message
     }
     

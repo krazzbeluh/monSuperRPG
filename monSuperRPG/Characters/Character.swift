@@ -22,6 +22,24 @@ class Character {
         self.weapon = weapon
     }
     
+    func getInfos() -> String {
+        var message = ""
+        if self is Colossus {
+            message += "Colosse"
+        } else if self is Dwarf {
+            message += "Nain"
+        } else if self is Fighter {
+            message += "Simple Combattant"
+        } else if self is Mage {
+            message += "Mage"
+        } else {
+            message += "Type inconnu"
+        }
+        
+        message += ": \(name) => \(life) / \(maxLife) PV | Arme : \(weapon.name)"
+        return(message)
+    }
+    
     func attack(defender: Character) {
         if (self.life > 0) {
             defender.life -= self.weapon.damage

@@ -29,4 +29,16 @@ class Team {
             return(false)
         }
     }
+    
+    func getStatus() -> String {
+        var message = "Équipe de \(playerName) : \n"
+        if isAlive() {
+            for i in 0 ... 2 {
+                message += characters[i].getInfos() + "\n"
+            }
+        } else {
+            message += "L'équipe est morte, \(playerName) est éliminé"
+        }
+        return(message)
+    }
 }
