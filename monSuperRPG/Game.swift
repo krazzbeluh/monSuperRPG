@@ -227,5 +227,31 @@ class Game {
             print(getStatus())
         }
         print("Partier terminée !")
+        
+        let result = searchWinner()
+        switch result {
+        case -2:
+            print("Wow tout le monde est mort... Moi-même, je ne savais pas que c'était possible dans ce tour par tour")
+        case -1:
+            print("Il y a plus d'une équipe en vie... Aidez-moi, je suis perdu")
+        default:
+            print("Le vainqueur est l'\(teams[result].getStatus())")
+        }
+    }
+    
+    
+    func searchWinner() -> Int {
+        var lastAlive = -2
+        for i in 0 ... players - 1 {
+            if teams[i].isAlive() {
+                if lastAlive != -1 {
+                    lastAlive = i
+                } else {
+                    lastAlive = -1
+                }
+            }
+        }
+        
+        return(lastAlive)
     }
 }

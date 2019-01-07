@@ -37,6 +37,10 @@ class Character {
         }
         
         message += ": \(name) => \(life) / \(maxLife) PV | Arme : \(weapon.name)"
+        
+        if !self.isAlive() {
+            message += " => Ce personnage est mort"
+        }
         return(message)
     }
     
@@ -44,6 +48,9 @@ class Character {
         if (self.life > 0) {
             if self is Mage {
                 defender.life += Mage.healthCare
+                if defender.life > defender.maxLife {
+                    defender.life = defender.maxLife
+                }
             } else {
                 defender.life -= self.weapon.damage
                 if defender.life <= 0 {
