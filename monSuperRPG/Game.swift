@@ -129,7 +129,7 @@ class Game {
             
             let player = playerTurn
             
-            print("Quel personnage voulez-vous utiliser ?")
+            print("\(teams[player].playerName), quel personnage voulez-vous utiliser ?")
             for i in 0 ... 2 {
                 print("\(i + 1). \(teams[player].characters[i].getInfos())")
             }
@@ -164,7 +164,7 @@ class Game {
                 target = choice - 1
             } else {
                 
-                print("\(teams[player].playerName), Quel joueur voulez-vous cibler ?")
+                print("\(teams[player].playerName), quel joueur voulez-vous cibler ?")
                 for i in 1 ... players {
                     print("\(i). \(teams[i - 1].playerName)")
                 }

@@ -10,6 +10,6 @@ import Foundation
 class Colossus: Character {
     init(name: String) {
         let punch = Punch()
-        super.init(maxLife: 1500, weapon: punch, name: name)
+        super.init(maxLife: 500, weapon: punch, name: name)
     }
 }
