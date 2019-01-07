@@ -81,7 +81,7 @@ class Game {
         }
         
         if defenderNamed <= players {
-            defender = defenderNamed - 1
+            defender = defenderNamed
         } else {
             return(3)
         }
@@ -142,19 +142,12 @@ class Game {
                     loop = false
                 }
             }
-            let defender = choice
+            let defender = choice - 1
             
-            choice = -1
-            loop = true
-            while loop == true || choice == -1 {
-                loop = true
-                if let line = readLine() {
-                    choice = convertIntoInt(value: line)
-                    loop = false
-                }
+            print("Avec quel personnage  voulez-vous attaquer ?")
+            for i in 0 ... 2 {
+                print("\(i + 1). \(teams[player].characters[i].getInfos())")
             }
-            let target = choice
-            
             choice = -1
             loop = true
             while loop == true || choice == -1 {
@@ -166,12 +159,27 @@ class Game {
             }
             let attacker = choice
             
+            print("Quel personnage voulez-vous attaquer ?")
+            for i in 0 ... 2 {
+                print("\(i + 1). \(teams[defender].characters[i].getInfos())")
+            }
+            choice = -1
+            loop = true
+            while loop == true || choice == -1 {
+                loop = true
+                if let line = readLine() {
+                    choice = convertIntoInt(value: line)
+                    loop = false
+                }
+            }
+            let target = choice
+            
             let result = attack(playerNamed: player, defenderNamed: defender, targetNamed: target, attackerNamed: attacker)
             switch result {
             case 0:
-                print("\(teams[player].playerName) inflige \(teams[player].characters[attacker - 1].weapon.damage) dégats à \(teams[defender - 1].characters[target - 1].name) avec la précieuse aide de \(teams[player].characters[attacker - 1].name) et de son \(teams[player].characters[attacker - 1].weapon.name)")
+                print("\(teams[player].playerName) inflige \(teams[player].characters[attacker - 1].weapon.damage) dégats à \(teams[defender].characters[target - 1].name) avec la précieuse aide de \(teams[player].characters[attacker - 1].name) et de son \(teams[player].characters[attacker - 1].weapon.name)")
             case 1:
-                print("\(teams[player].characters[attacker - 1].name) a tué \(teams[defender - 1])")
+                print("\(teams[player].characters[attacker - 1].name) a tué \(teams[defender])")
             case 2:
                 print("ERREUR : Le joueur \(player) n'existe pas")
             case 3:
