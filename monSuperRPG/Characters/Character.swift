@@ -42,9 +42,13 @@ class Character {
     
     func attack(defender: Character) {
         if (self.life > 0) {
-            defender.life -= self.weapon.damage
-            if defender.life <= 0 {
-                defender.life = 0
+            if self is Mage {
+                defender.life += Mage.healthCare
+            } else {
+                defender.life -= self.weapon.damage
+                if defender.life <= 0 {
+                    defender.life = 0
+                }
             }
         } else {
             print("Erreur : Le personnage selectionné est mort")

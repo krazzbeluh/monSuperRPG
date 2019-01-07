@@ -87,7 +87,7 @@ class Game {
         }
         
         if targetNamed - 1 <= teams[defender].characters.count {
-            target = targetNamed - 1
+            target = targetNamed
             if (teams[defender].characters[target].life <= 0) {
                 return 4
             }
@@ -96,7 +96,7 @@ class Game {
         }
         
         if attackerNamed - 1 <= teams[player].characters.count {
-            attacker = attackerNamed - 1
+            attacker = attackerNamed
             if (teams[player].characters[attacker].life <= 0) {
                 return(5)
             }
@@ -129,9 +129,9 @@ class Game {
             
             let player = playerTurn
             
-            print("\(teams[player].playerName), Quel joueur voulez-vous attaquer ?")
-            for i in 1 ... players {
-                print("\(i). \(teams[i - 1].playerName)")
+            print("Quel personnage voulez-vous utiliser ?")
+            for i in 0 ... 2 {
+                print("\(i + 1). \(teams[player].characters[i].getInfos())")
             }
             var choice = -1
             var loop = true
@@ -142,44 +142,68 @@ class Game {
                     loop = false
                 }
             }
-            let defender = choice - 1
-            
-            print("Avec quel personnage  voulez-vous attaquer ?")
-            for i in 0 ... 2 {
-                print("\(i + 1). \(teams[player].characters[i].getInfos())")
-            }
-            choice = -1
-            loop = true
-            while loop == true || choice == -1 {
-                loop = true
-                if let line = readLine() {
-                    choice = convertIntoInt(value: line)
-                    loop = false
+            let attacker = choice - 1
+            let defender: Int
+            let target: Int
+            if teams[player].characters[attacker] is Mage {
+                print("\(teams[player].characters[attacker].name) est un mage, vous pouvez soigner un personnage")
+                
+                for i in 0 ... 2 {
+                    print("\(i + 1). \(teams[player].characters[i].getInfos())")
                 }
-            }
-            let attacker = choice
-            
-            print("Quel personnage voulez-vous attaquer ?")
-            for i in 0 ... 2 {
-                print("\(i + 1). \(teams[defender].characters[i].getInfos())")
-            }
-            choice = -1
-            loop = true
-            while loop == true || choice == -1 {
+                choice = -1
                 loop = true
-                if let line = readLine() {
-                    choice = convertIntoInt(value: line)
-                    loop = false
+                while loop == true || choice == -1 {
+                    loop = true
+                    if let line = readLine() {
+                        choice = convertIntoInt(value: line)
+                        loop = false
+                    }
                 }
+                defender = player
+                target = choice - 1
+            } else {
+                
+                print("\(teams[player].playerName), Quel joueur voulez-vous cibler ?")
+                for i in 1 ... players {
+                    print("\(i). \(teams[i - 1].playerName)")
+                }
+                choice = -1
+                loop = true
+                while loop == true || choice == -1 {
+                    loop = true
+                    if let line = readLine() {
+                        choice = convertIntoInt(value: line)
+                        loop = false
+                    }
+                }
+                defender = choice - 1
+                
+                print("Quel personnage voulez-vous attaquer ?")
+                for i in 0 ... 2 {
+                    print("\(i + 1). \(teams[defender].characters[i].getInfos())")
+                }
+                choice = -1
+                loop = true
+                while loop == true || choice == -1 {
+                    loop = true
+                    if let line = readLine() {
+                        choice = convertIntoInt(value: line)
+                        loop = false
+                    }
+                }
+                target = choice - 1
             }
-            let target = choice
-            
             let result = attack(playerNamed: player, defenderNamed: defender, targetNamed: target, attackerNamed: attacker)
             switch result {
             case 0:
-                print("\(teams[player].playerName) inflige \(teams[player].characters[attacker - 1].weapon.damage) dégats à \(teams[defender].characters[target - 1].name) avec la précieuse aide de \(teams[player].characters[attacker - 1].name) et de son \(teams[player].characters[attacker - 1].weapon.name)")
+                if teams[player].characters[attacker] is Mage {
+                    print("\(teams[player].playerName) soigne \(defender) qui récupère \(Mage.healthCare) PVs grâce au mage \(teams[player].characters[attacker].name)")
+                } else {
+                    print("\(teams[player].playerName) inflige \(teams[player].characters[attacker].weapon.damage) dégats à \(teams[defender].characters[target].name) avec la précieuse aide de \(teams[player].characters[attacker].name) et de son \(teams[player].characters[attacker].weapon.name)")
+                }
             case 1:
-                print("\(teams[player].characters[attacker - 1].name) a tué \(teams[defender])")
+                print("\(teams[player].characters[attacker].name) a tué \(teams[defender])")
             case 2:
                 print("ERREUR : Le joueur \(player) n'existe pas")
             case 3:

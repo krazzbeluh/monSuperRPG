@@ -8,6 +8,7 @@
 
 import Foundation
 class Mage: Character {
+    static let healthCare = 50
     init(name: String) {
         let spellOn = SpellOn()
         super.init(maxLife: 50, weapon: spellOn, name: name)

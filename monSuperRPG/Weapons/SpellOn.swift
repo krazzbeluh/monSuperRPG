@@ -9,6 +9,6 @@
 import Foundation
 class SpellOn: Weapon {
     init() {
-        super.init(name: "Sort", damage: 0)
+        super.init(name: "Sort", damage: 50)
     }
 }
