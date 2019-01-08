@@ -11,7 +11,7 @@ class Character {
     var life: Int
     let maxLife: Int
     let name: String
-    let weapon: Weapon
+    var weapon: Weapon
     
     
     init(maxLife: Int, weapon: Weapon, name: String) {

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		94337E4021E4F13F000F461D /* NotchApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94337E3F21E4F13F000F461D /* NotchApple.swift */; };
+		94337E4221E4F204000F461D /* LightSaber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94337E4121E4F204000F461D /* LightSaber.swift */; };
+		94337E4421E4F277000F461D /* FlashBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94337E4321E4F277000F461D /* FlashBall.swift */; };
+		94337E4821E4F2E6000F461D /* PokemonCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94337E4721E4F2E6000F461D /* PokemonCenter.swift */; };
+		94337E4A21E4F452000F461D /* Scratch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94337E4921E4F452000F461D /* Scratch.swift */; };
+		94337E4C21E4F4DC000F461D /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94337E4B21E4F4DC000F461D /* Calculator.swift */; };
 		944AF18C21D04F13003CAD03 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944AF18B21D04F13003CAD03 /* Team.swift */; };
 		944AF18E21D04F23003CAD03 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944AF18D21D04F23003CAD03 /* Character.swift */; };
 		944AF19021D04F34003CAD03 /* Fighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944AF18F21D04F34003CAD03 /* Fighter.swift */; };
@@ -35,6 +41,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		94337E3F21E4F13F000F461D /* NotchApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchApple.swift; sourceTree = "<group>"; };
+		94337E4121E4F204000F461D /* LightSaber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightSaber.swift; sourceTree = "<group>"; };
+		94337E4321E4F277000F461D /* FlashBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashBall.swift; sourceTree = "<group>"; };
+		94337E4721E4F2E6000F461D /* PokemonCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCenter.swift; sourceTree = "<group>"; };
+		94337E4921E4F452000F461D /* Scratch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scratch.swift; sourceTree = "<group>"; };
+		94337E4B21E4F4DC000F461D /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
 		944AF18B21D04F13003CAD03 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		944AF18D21D04F23003CAD03 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		944AF18F21D04F34003CAD03 /* Fighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fighter.swift; sourceTree = "<group>"; };
@@ -62,14 +74,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		94337E4521E4F2A4000F461D /* Defensive */ = {
+			isa = PBXGroup;
+			children = (
+				94337E3F21E4F13F000F461D /* NotchApple.swift */,
+				944AF19F21D04FA4003CAD03 /* SpellOn.swift */,
+				94337E4B21E4F4DC000F461D /* Calculator.swift */,
+				94337E4721E4F2E6000F461D /* PokemonCenter.swift */,
+			);
+			path = Defensive;
+			sourceTree = "<group>";
+		};
+		94337E4621E4F2B5000F461D /* Offensive */ = {
+			isa = PBXGroup;
+			children = (
+				94337E4121E4F204000F461D /* LightSaber.swift */,
+				94337E4321E4F277000F461D /* FlashBall.swift */,
+				944AF1AB21D0508C003CAD03 /* Sword.swift */,
+				944AF1A921D05071003CAD03 /* Axe.swift */,
+				94337E4921E4F452000F461D /* Scratch.swift */,
+			);
+			path = Offensive;
+			sourceTree = "<group>";
+		};
 		944AF1A321D04FC5003CAD03 /* Weapons */ = {
 			isa = PBXGroup;
 			children = (
-				944AF1AB21D0508C003CAD03 /* Sword.swift */,
-				944AF1A921D05071003CAD03 /* Axe.swift */,
 				944AF1A721D05058003CAD03 /* Weapon.swift */,
+				94337E4621E4F2B5000F461D /* Offensive */,
+				94337E4521E4F2A4000F461D /* Defensive */,
 				944AF1A521D0503F003CAD03 /* Punch.swift */,
-				944AF19F21D04FA4003CAD03 /* SpellOn.swift */,
 			);
 			path = Weapons;
 			sourceTree = "<group>";
@@ -173,14 +207,20 @@
 			files = (
 				944AF19221D04F46003CAD03 /* Mage.swift in Sources */,
 				944AF1AA21D05071003CAD03 /* Axe.swift in Sources */,
+				94337E4C21E4F4DC000F461D /* Calculator.swift in Sources */,
 				944AF1A221D04FB3003CAD03 /* Game.swift in Sources */,
+				94337E4421E4F277000F461D /* FlashBall.swift in Sources */,
+				94337E4021E4F13F000F461D /* NotchApple.swift in Sources */,
 				944AF18E21D04F23003CAD03 /* Character.swift in Sources */,
 				944AF1A821D05058003CAD03 /* Weapon.swift in Sources */,
 				944AF1A621D0503F003CAD03 /* Punch.swift in Sources */,
 				944AF19021D04F34003CAD03 /* Fighter.swift in Sources */,
 				944AF18C21D04F13003CAD03 /* Team.swift in Sources */,
+				94337E4A21E4F452000F461D /* Scratch.swift in Sources */,
 				944AF19421D04F53003CAD03 /* Colossus.swift in Sources */,
+				94337E4821E4F2E6000F461D /* PokemonCenter.swift in Sources */,
 				944AF19621D04F61003CAD03 /* Dwarf.swift in Sources */,
+				94337E4221E4F204000F461D /* LightSaber.swift in Sources */,
 				94C6651F21CAF10C00C77C90 /* main.swift in Sources */,
 				944AF1AC21D0508C003CAD03 /* Sword.swift in Sources */,
 				944AF1A021D04FA4003CAD03 /* SpellOn.swift in Sources */,

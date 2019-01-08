@@ -155,6 +155,39 @@ class Game {
             }
             let attacker = choice
             
+//
+//          Creating random event (finding new chest with random weapon inside
+//
+            
+//            this event only takes place once in 5
+            let randomEvent = arc4random_uniform(5)
+            if randomEvent == 0 {
+//                Event takes place
+                if teams[player].characters[attacker] is Mage {
+                    switch arc4random_uniform(UInt32(Weapon.numberOfDifferentDefensiveWeapons)) {
+                    case 0:
+                        teams[player].characters[attacker].weapon = SpellOn()
+                    case 1:
+                        teams[player].characters[attacker].weapon = NotchApple()
+                    default:
+                        print("ERROR: Generating weapon out of range")
+                    }
+                } else {
+                    switch arc4random_uniform(UInt32(Weapon.numberOfDifferentOffensiveWeapons)) {
+                    case 0:
+                        teams[player].characters[attacker].weapon = Sword()
+                    case 1:
+                        teams[player].characters[attacker].weapon = Axe()
+                    case 2:
+                        teams[player].characters[attacker].weapon = Punch()
+                    default:
+                        print("ERROR: Generating weapon out of range")
+                    }
+                }
+                print("Oh ! Un coffre apparaît \(teams[player].characters[attacker].name) l'ouvre et y trouve une nouvelle arme : Un(e) \(teams[player].characters[attacker].weapon.name)")
+            }
+        
+            
             let defender: Int
             let target: Int
             if teams[player].characters[attacker] is Mage {
