@@ -138,14 +138,28 @@ class Game {
             while loop == true || choice == -1 {
                 loop = true
                 if let line = readLine() {
-                    choice = convertIntoInt(value: line)
+                    choice = convertIntoInt(value: line) - 1
                     loop = false
                 }
+                
+                if choice <= teams[player].characters.count - 1 && choice > -1 {
+                    if !teams[player].characters[choice].isAlive() {
+                        print("ERREUR : Le personnage désigné (\(teams[player].characters[choice].name) est déjà mort !")
+                        choice = -1
+                    }
+                } else {
+                    print("ERREUR : Le personnage désigné n'existe pas !")
+                    choice = -1
+                }
+                
             }
-            let attacker = choice - 1
+            let attacker = choice
+            
             let defender: Int
             let target: Int
             if teams[player].characters[attacker] is Mage {
+                
+                defender = player
                 print("\(teams[player].characters[attacker].name) est un mage, vous pouvez soigner un personnage")
                 
                 for i in 0 ... 2 {
@@ -156,12 +170,21 @@ class Game {
                 while loop == true || choice == -1 {
                     loop = true
                     if let line = readLine() {
-                        choice = convertIntoInt(value: line)
+                        choice = convertIntoInt(value: line) - 1
                         loop = false
                     }
+                    
+                    if choice <= teams[player].characters.count {
+                        if !teams[defender].characters[choice].isAlive() {
+                            print("ERREUR : Le personnage désigné (\(teams[defender].characters[choice].name) est déjà mort !)")
+                            choice = -1
+                        }
+                    } else {
+                        print("ERREUR : Le personnage désigné n'existe pas !")
+                        choice = -1
+                    }
                 }
-                defender = player
-                target = choice - 1
+                target = choice
             } else {
                 
                 print("\(teams[player].playerName), quel joueur voulez-vous cibler ?")
@@ -173,11 +196,24 @@ class Game {
                 while loop == true || choice == -1 {
                     loop = true
                     if let line = readLine() {
-                        choice = convertIntoInt(value: line)
+                        choice = convertIntoInt(value: line) - 1
                         loop = false
                     }
+                    
+                    if choice <= players - 1 && choice > -1 {
+                        if choice == player {
+                            print("ERREUR : Vous ne pouvez pas vous attaquer vous-même !")
+                            choice = -1
+                        } else if !teams[choice].isAlive() {
+                            print("ERREUR : Le joueur désigné (\(teams[choice].playerName)) est déjà mort !")
+                            choice = -1
+                        }
+                    } else {
+                        print("ERREUR : Le joueur désigné n'existe pas")
+                        choice = -1
+                    }
                 }
-                defender = choice - 1
+                defender = choice
                 
                 print("Quel personnage voulez-vous attaquer ?")
                 for i in 0 ... 2 {
@@ -188,11 +224,21 @@ class Game {
                 while loop == true || choice == -1 {
                     loop = true
                     if let line = readLine() {
-                        choice = convertIntoInt(value: line)
+                        choice = convertIntoInt(value: line) - 1
                         loop = false
                     }
+                    
+                    if choice <= teams[defender].characters.count - 1 && choice > -1 {
+                        if !teams[defender].characters[choice].isAlive() {
+                            print("ERREUR : Le personnage désigné (\(teams[defender].characters[choice].name)) est déjà mort !")
+                            choice = -1
+                        }
+                    } else {
+                        print("ERREUR : Le personnage désigné n'existe pas !")
+                        choice = -1
+                    }
                 }
-                target = choice - 1
+                target = choice
             }
             let result = attack(playerNamed: player, defenderNamed: defender, targetNamed: target, attackerNamed: attacker)
             switch result {
