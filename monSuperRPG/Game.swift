@@ -11,8 +11,19 @@ class Game {
     var teams = [Team]()
     let players: Int
     
-    init(players: Int) {
-        self.players = players
+    init() {
+        print("Combien de joueurs serez-vous ?")
+        var choice = -1
+        var loop = true
+        while loop == true || choice == -1 {
+            loop = true
+            if let line = readLine() {
+                choice = convertIntoInt(value: line)
+                loop = false
+            }
+        }
+
+        self.players = choice
         for i in 1 ... players {
             let playerName: String
             var characters = [Character]()

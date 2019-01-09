@@ -13,6 +13,6 @@ func convertIntoInt(value: String) -> Int {
     return(-1)
 }
 
-let game = Game(players: 2)
+let game = Game()
 game.start()
 
