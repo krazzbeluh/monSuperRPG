@@ -13,13 +13,11 @@ class Game {
     
     init() {
         print("Combien de joueurs serez-vous ?")
-        var choice = -1
-        var loop = true
-        while loop == true || choice == -1 {
-            loop = true
+        var choice = 1
+//        playing alone isn't allowed
+        while choice == 1 {
             if let line = readLine() {
                 choice = convertIntoInt(value: line)
-                loop = false
             }
         }
 
@@ -136,7 +134,7 @@ class Game {
     func start() {
         var playerTurn = 0
         
-        while teams[0].isAlive() && teams[1].isAlive() {
+        while searchWinner() == -1 {
             
             let player = playerTurn
             
@@ -145,12 +143,9 @@ class Game {
                 print("\(i + 1). \(teams[player].characters[i].getInfos())")
             }
             var choice = -1
-            var loop = true
-            while loop == true || choice == -1 {
-                loop = true
+            while choice == -1 {
                 if let line = readLine() {
                     choice = convertIntoInt(value: line) - 1
-                    loop = false
                 }
                 
                 if choice <= teams[player].characters.count - 1 && choice > -1 {
@@ -210,12 +205,9 @@ class Game {
                     print("\(i + 1). \(teams[player].characters[i].getInfos())")
                 }
                 choice = -1
-                loop = true
-                while loop == true || choice == -1 {
-                    loop = true
+                while choice == -1 {
                     if let line = readLine() {
                         choice = convertIntoInt(value: line) - 1
-                        loop = false
                     }
                     
                     if choice <= teams[player].characters.count {
@@ -236,12 +228,9 @@ class Game {
                     print("\(i). \(teams[i - 1].playerName)")
                 }
                 choice = -1
-                loop = true
-                while loop == true || choice == -1 {
-                    loop = true
+                while choice == -1 {
                     if let line = readLine() {
                         choice = convertIntoInt(value: line) - 1
-                        loop = false
                     }
                     
                     if choice <= players - 1 && choice > -1 {
@@ -264,12 +253,9 @@ class Game {
                     print("\(i + 1). \(teams[defender].characters[i].getInfos())")
                 }
                 choice = -1
-                loop = true
-                while loop == true || choice == -1 {
-                    loop = true
+                while choice == -1 {
                     if let line = readLine() {
                         choice = convertIntoInt(value: line) - 1
-                        loop = false
                     }
                     
                     if choice <= teams[defender].characters.count - 1 && choice > -1 {
@@ -341,7 +327,9 @@ class Game {
                 }
             }
         }
-        
+//          -1 -> there are more than 1 alive player
+//          -2 -> everybody is dead (impossible)
+//          x > 0 -> the winner's player ID
         return(lastAlive)
     }
 }
