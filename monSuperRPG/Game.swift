@@ -13,11 +13,14 @@ class Game {
     
     init() {
         print("Combien de joueurs serez-vous ?")
-        var choice = 1
+        var choice = 0
 //        playing alone isn't allowed
-        while choice == 1 {
+        while choice == 1 || choice == 0 {
             if let line = readLine() {
                 choice = convertIntoInt(value: line)
+                if choice == 1 {
+                    print("ERREUR : Vous ne pouvez pas jouer seul !")
+                }
             }
         }
 
@@ -76,27 +79,17 @@ class Game {
         }
     }
     
-    func attack(playerNamed: Int, defenderNamed: Int, targetNamed: Int, attackerNamed: Int) -> Int {
-        let player: Int
-        let defender: Int
-        let target: Int
-        let attacker: Int
-        
+    func attack(player: Int, defender: Int, target: Int, attacker: Int) -> Int {
 //        verifying given attributes
-        if playerNamed <= players - 1 {
-            player = playerNamed
-        } else {
+        if player >= players - 1 {
             return(2)
         }
         
-        if defenderNamed <= players {
-            defender = defenderNamed
-        } else {
+        if defender >= players - 1 {
             return(3)
         }
         
-        if targetNamed - 1 <= teams[defender].characters.count {
-            target = targetNamed
+        if target - 1 <= teams[defender].characters.count {
             if (teams[defender].characters[target].life <= 0) {
                 return 4
             }
@@ -104,8 +97,7 @@ class Game {
             return(4)
         }
         
-        if attackerNamed - 1 <= teams[player].characters.count {
-            attacker = attackerNamed
+        if attacker - 1 <= teams[player].characters.count {
             if (teams[player].characters[attacker].life <= 0) {
                 return(5)
             }
@@ -133,7 +125,6 @@ class Game {
     
     func start() {
         var playerTurn = 0
-        
         while searchWinner() == -1 {
             
             let player = playerTurn
@@ -150,7 +141,7 @@ class Game {
                 
                 if choice <= teams[player].characters.count - 1 && choice > -1 {
                     if !teams[player].characters[choice].isAlive() {
-                        print("ERREUR : Le personnage désigné (\(teams[player].characters[choice].name) est déjà mort !")
+                        print("ERREUR : Le personnage désigné (\(teams[player].characters[choice].name)) est déjà mort !")
                         choice = -1
                     }
                 } else {
@@ -175,6 +166,10 @@ class Game {
                         teams[player].characters[attacker].weapon = SpellOn()
                     case 1:
                         teams[player].characters[attacker].weapon = NotchApple()
+                    case 2:
+                        teams[player].characters[attacker].weapon = Calculator()
+                    case 3:
+                        teams[player].characters[attacker].weapon = PokemonCenter()
                     default:
                         print("ERROR: Generating weapon out of range")
                     }
@@ -186,6 +181,10 @@ class Game {
                         teams[player].characters[attacker].weapon = Axe()
                     case 2:
                         teams[player].characters[attacker].weapon = Punch()
+                    case 3:
+                        teams[player].characters[attacker].weapon = LightSaber()
+                    case 4:
+                        teams[player].characters[attacker].weapon = FlashBall()
                     default:
                         print("ERROR: Generating weapon out of range")
                     }
@@ -270,7 +269,7 @@ class Game {
                 }
                 target = choice
             }
-            let result = attack(playerNamed: player, defenderNamed: defender, targetNamed: target, attackerNamed: attacker)
+            let result = attack(player: player, defender: defender, target: target, attacker: attacker)
             switch result {
             case 0:
                 if teams[player].characters[attacker] is Mage {
@@ -320,7 +319,7 @@ class Game {
         var lastAlive = -2
         for i in 0 ... players - 1 {
             if teams[i].isAlive() {
-                if lastAlive != -1 {
+                if lastAlive == -2 {
                     lastAlive = i
                 } else {
                     lastAlive = -1

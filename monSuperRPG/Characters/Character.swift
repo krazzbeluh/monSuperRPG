@@ -47,7 +47,7 @@ class Character {
     func attack(defender: Character) {
         if (self.life > 0) {
             if self is Mage {
-                defender.life += Mage.healthCare
+                defender.life += self.weapon.damage
                 if defender.life > defender.maxLife {
                     defender.life = defender.maxLife
                 }
