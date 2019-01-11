@@ -81,11 +81,11 @@ class Game {
     
     func attack(player: Int, defender: Int, target: Int, attacker: Int) -> Int {
 //        verifying given attributes
-        if player >= players - 1 {
+        if player > players - 1 {
             return(2)
         }
         
-        if defender >= players - 1 {
+        if defender > players - 1 {
             return(3)
         }
         
@@ -128,169 +128,174 @@ class Game {
         while searchWinner() == -1 {
             
             let player = playerTurn
+            let result: Int
             
-            print("\(teams[player].playerName), quel personnage voulez-vous utiliser ?")
-            for i in 0 ... 2 {
-                print("\(i + 1). \(teams[player].characters[i].getInfos())")
-            }
-            var choice = -1
-            while choice == -1 {
-                if let line = readLine() {
-                    choice = convertIntoInt(value: line) - 1
-                }
-                
-                if choice <= teams[player].characters.count - 1 && choice > -1 {
-                    if !teams[player].characters[choice].isAlive() {
-                        print("ERREUR : Le personnage désigné (\(teams[player].characters[choice].name)) est déjà mort !")
-                        choice = -1
-                    }
-                } else {
-                    print("ERREUR : Le personnage désigné n'existe pas !")
-                    choice = -1
-                }
-                
-            }
-            let attacker = choice
-            
-//
-//          Creating random event (finding new chest with random weapon inside
-//
-            
-//            this event only takes place once in 5
-            let randomEvent = arc4random_uniform(5)
-            if randomEvent == 0 {
-//                Event takes place
-                if teams[player].characters[attacker] is Mage {
-                    switch arc4random_uniform(UInt32(Weapon.numberOfDifferentDefensiveWeapons)) {
-                    case 0:
-                        teams[player].characters[attacker].weapon = SpellOn()
-                    case 1:
-                        teams[player].characters[attacker].weapon = NotchApple()
-                    case 2:
-                        teams[player].characters[attacker].weapon = Calculator()
-                    case 3:
-                        teams[player].characters[attacker].weapon = PokemonCenter()
-                    default:
-                        print("ERROR: Generating weapon out of range")
-                    }
-                } else {
-                    switch arc4random_uniform(UInt32(Weapon.numberOfDifferentOffensiveWeapons)) {
-                    case 0:
-                        teams[player].characters[attacker].weapon = Sword()
-                    case 1:
-                        teams[player].characters[attacker].weapon = Axe()
-                    case 2:
-                        teams[player].characters[attacker].weapon = Punch()
-                    case 3:
-                        teams[player].characters[attacker].weapon = LightSaber()
-                    case 4:
-                        teams[player].characters[attacker].weapon = FlashBall()
-                    default:
-                        print("ERROR: Generating weapon out of range")
-                    }
-                }
-                print("Oh ! Un coffre apparaît \(teams[player].characters[attacker].name) l'ouvre et y trouve une nouvelle arme : Un(e) \(teams[player].characters[attacker].weapon.name)")
-            }
-        
-            
-            let defender: Int
-            let target: Int
-            if teams[player].characters[attacker] is Mage {
-                
-                defender = player
-                print("\(teams[player].characters[attacker].name) est un mage, vous pouvez soigner un personnage")
-                
+            if teams[player].isAlive() {
+                print("\(teams[player].playerName), quel personnage voulez-vous utiliser ?")
                 for i in 0 ... 2 {
                     print("\(i + 1). \(teams[player].characters[i].getInfos())")
                 }
-                choice = -1
+                var choice = -1
                 while choice == -1 {
                     if let line = readLine() {
                         choice = convertIntoInt(value: line) - 1
                     }
                     
-                    if choice <= teams[player].characters.count {
-                        if !teams[defender].characters[choice].isAlive() {
-                            print("ERREUR : Le personnage désigné (\(teams[defender].characters[choice].name) est déjà mort !)")
+                    if choice <= teams[player].characters.count - 1 && choice > -1 {
+                        if !teams[player].characters[choice].isAlive() {
+                            print("ERREUR : Le personnage désigné (\(teams[player].characters[choice].name)) est déjà mort !")
                             choice = -1
                         }
                     } else {
                         print("ERREUR : Le personnage désigné n'existe pas !")
                         choice = -1
                     }
-                }
-                target = choice
-            } else {
-                
-                print("\(teams[player].playerName), quel joueur voulez-vous cibler ?")
-                for i in 1 ... players {
-                    print("\(i). \(teams[i - 1].playerName)")
-                }
-                choice = -1
-                while choice == -1 {
-                    if let line = readLine() {
-                        choice = convertIntoInt(value: line) - 1
-                    }
                     
-                    if choice <= players - 1 && choice > -1 {
-                        if choice == player {
-                            print("ERREUR : Vous ne pouvez pas vous attaquer vous-même !")
-                            choice = -1
-                        } else if !teams[choice].isAlive() {
-                            print("ERREUR : Le joueur désigné (\(teams[choice].playerName)) est déjà mort !")
-                            choice = -1
+                }
+                let attacker = choice
+                
+    //
+    //          Creating random event (finding new chest with random weapon inside
+    //
+                
+    //            this event only takes place once in 5
+                let randomEvent = arc4random_uniform(5)
+                if randomEvent == 0 {
+    //                Event takes place
+                    if teams[player].characters[attacker] is Mage {
+                        switch arc4random_uniform(UInt32(Weapon.numberOfDifferentDefensiveWeapons)) {
+                        case 0:
+                            teams[player].characters[attacker].weapon = SpellOn()
+                        case 1:
+                            teams[player].characters[attacker].weapon = NotchApple()
+                        case 2:
+                            teams[player].characters[attacker].weapon = Calculator()
+                        case 3:
+                            teams[player].characters[attacker].weapon = PokemonCenter()
+                        default:
+                            print("ERROR: Generating weapon out of range")
                         }
                     } else {
-                        print("ERREUR : Le joueur désigné n'existe pas")
-                        choice = -1
-                    }
-                }
-                defender = choice
-                
-                print("Quel personnage voulez-vous attaquer ?")
-                for i in 0 ... 2 {
-                    print("\(i + 1). \(teams[defender].characters[i].getInfos())")
-                }
-                choice = -1
-                while choice == -1 {
-                    if let line = readLine() {
-                        choice = convertIntoInt(value: line) - 1
-                    }
-                    
-                    if choice <= teams[defender].characters.count - 1 && choice > -1 {
-                        if !teams[defender].characters[choice].isAlive() {
-                            print("ERREUR : Le personnage désigné (\(teams[defender].characters[choice].name)) est déjà mort !")
-                            choice = -1
+                        switch arc4random_uniform(UInt32(Weapon.numberOfDifferentOffensiveWeapons)) {
+                        case 0:
+                            teams[player].characters[attacker].weapon = Sword()
+                        case 1:
+                            teams[player].characters[attacker].weapon = Axe()
+                        case 2:
+                            teams[player].characters[attacker].weapon = Punch()
+                        case 3:
+                            teams[player].characters[attacker].weapon = LightSaber()
+                        case 4:
+                            teams[player].characters[attacker].weapon = FlashBall()
+                        default:
+                            print("ERROR: Generating weapon out of range")
                         }
-                    } else {
-                        print("ERREUR : Le personnage désigné n'existe pas !")
-                        choice = -1
                     }
+                    print("Oh ! Un coffre apparaît \(teams[player].characters[attacker].name) l'ouvre et y trouve une nouvelle arme : Un(e) \(teams[player].characters[attacker].weapon.name)")
                 }
-                target = choice
-            }
-            let result = attack(player: player, defender: defender, target: target, attacker: attacker)
-            switch result {
-            case 0:
-                if teams[player].characters[attacker] is Mage {
-                    print("\(teams[player].playerName) soigne \(defender) qui récupère \(Mage.healthCare) PVs grâce au mage \(teams[player].characters[attacker].name)")
-                } else {
-                    print("\(teams[player].playerName) inflige \(teams[player].characters[attacker].weapon.damage) dégats à \(teams[defender].characters[target].name) avec la précieuse aide de \(teams[player].characters[attacker].name) et de son \(teams[player].characters[attacker].weapon.name)")
-                }
-            case 1:
-                print("\(teams[player].characters[attacker].name) a tué \(teams[defender])")
-            case 2:
-                print("ERREUR : Le joueur \(player) n'existe pas")
-            case 3:
-                print("ERREUR : Le joueur \(defender) n'existe pas")
-            case 4:
-                print("ERREUR : La cible spécifiée n'existe pas ou est déjà morte")
-            case 5:
-                print("ERREUR : L'attaquant spécifié n'existe pas ou est déjà mort")
-            default:
-                print("ERREUR : Erreur inconnue")
-            }
             
+                
+                let defender: Int
+                let target: Int
+                if teams[player].characters[attacker] is Mage {
+                    
+                    defender = player
+                    print("\(teams[player].characters[attacker].name) est un mage, vous pouvez soigner un personnage")
+                    
+                    for i in 0 ... 2 {
+                        print("\(i + 1). \(teams[player].characters[i].getInfos())")
+                    }
+                    choice = -1
+                    while choice == -1 {
+                        if let line = readLine() {
+                            choice = convertIntoInt(value: line) - 1
+                        }
+                        
+                        if choice <= teams[player].characters.count {
+                            if !teams[defender].characters[choice].isAlive() {
+                                print("ERREUR : Le personnage désigné (\(teams[defender].characters[choice].name) est déjà mort !)")
+                                choice = -1
+                            }
+                        } else {
+                            print("ERREUR : Le personnage désigné n'existe pas !")
+                            choice = -1
+                        }
+                    }
+                    target = choice
+                } else {
+                    
+                    print("\(teams[player].playerName), quel joueur voulez-vous cibler ?")
+                    for i in 1 ... players {
+                        print("\(i). \(teams[i - 1].playerName)")
+                    }
+                    choice = -1
+                    while choice == -1 {
+                        if let line = readLine() {
+                            choice = convertIntoInt(value: line) - 1
+                        }
+                        
+                        if choice <= players - 1 && choice > -1 {
+                            if choice == player {
+                                print("ERREUR : Vous ne pouvez pas vous attaquer vous-même !")
+                                choice = -1
+                            } else if !teams[choice].isAlive() {
+                                print("ERREUR : Le joueur désigné (\(teams[choice].playerName)) est déjà mort !")
+                                choice = -1
+                            }
+                        } else {
+                            print("ERREUR : Le joueur désigné n'existe pas")
+                            choice = -1
+                        }
+                    }
+                    defender = choice
+                    
+                    print("Quel personnage voulez-vous attaquer ?")
+                    for i in 0 ... 2 {
+                        print("\(i + 1). \(teams[defender].characters[i].getInfos())")
+                    }
+                    choice = -1
+                    while choice == -1 {
+                        if let line = readLine() {
+                            choice = convertIntoInt(value: line) - 1
+                        }
+                        
+                        if choice <= teams[defender].characters.count - 1 && choice > -1 {
+                            if !teams[defender].characters[choice].isAlive() {
+                                print("ERREUR : Le personnage désigné (\(teams[defender].characters[choice].name)) est déjà mort !")
+                                choice = -1
+                            }
+                        } else {
+                            print("ERREUR : Le personnage désigné n'existe pas !")
+                            choice = -1
+                        }
+                    }
+                    target = choice
+                }
+                result = attack(player: player, defender: defender, target: target, attacker: attacker)
+                switch result {
+                case 0:
+                    if teams[player].characters[attacker] is Mage {
+                        print("\(teams[player].playerName) soigne \(defender) qui récupère \(teams[player].characters[attacker].weapon.damage) PVs grâce au mage \(teams[player].characters[attacker].name)")
+                    } else {
+                        print("\(teams[player].playerName) inflige \(teams[player].characters[attacker].weapon.damage) dégats à \(teams[defender].characters[target].name) avec la précieuse aide de \(teams[player].characters[attacker].name) et de son \(teams[player].characters[attacker].weapon.name)")
+                    }
+                case 1:
+                    print("\(teams[player].characters[attacker].name) a tué \(teams[defender].characters[target].name)")
+                case 2:
+                    print("ERREUR : Le joueur \(player + 1) n'existe pas")
+                case 3:
+                    print("ERREUR : Le joueur \(defender + 1) n'existe pas")
+                case 4:
+                    print("ERREUR : La cible spécifiée n'existe pas ou est déjà morte")
+                case 5:
+                    print("ERREUR : L'attaquant spécifié n'existe pas ou est déjà mort")
+                default:
+                    print("ERREUR : Erreur inconnue")
+                }
+            } else {
+                result = 0
+                print("\(teams[player].playerName) est éliminé, joueur suivant.")
+            }
             //    switching player if there's no error
             if (result <= 1) {
                 playerTurn += 1

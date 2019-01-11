@@ -52,7 +52,7 @@ class Character {
                     defender.life = defender.maxLife
                 }
             } else {
-                defender.life -= self.weapon.damage
+                defender.life -= self.weapon.damage * 5
                 if defender.life <= 0 {
                     defender.life = 0
                 }

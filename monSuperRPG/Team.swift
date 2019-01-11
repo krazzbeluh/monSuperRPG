@@ -37,7 +37,7 @@ class Team {
                 message += characters[i].getInfos() + "\n"
             }
         } else {
-            message += "L'équipe est morte, \(playerName) est éliminé"
+            message += "L'équipe est morte, \(playerName) est éliminé\n"
         }
         return(message)
     }
