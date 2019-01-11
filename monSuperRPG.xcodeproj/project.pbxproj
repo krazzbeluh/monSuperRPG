@@ -90,6 +90,7 @@
 			children = (
 				94337E4121E4F204000F461D /* LightSaber.swift */,
 				94337E4321E4F277000F461D /* FlashBall.swift */,
+				944AF1A521D0503F003CAD03 /* Punch.swift */,
 				944AF1AB21D0508C003CAD03 /* Sword.swift */,
 				944AF1A921D05071003CAD03 /* Axe.swift */,
 				94337E4921E4F452000F461D /* Scratch.swift */,
@@ -103,7 +104,6 @@
 				944AF1A721D05058003CAD03 /* Weapon.swift */,
 				94337E4621E4F2B5000F461D /* Offensive */,
 				94337E4521E4F2A4000F461D /* Defensive */,
-				944AF1A521D0503F003CAD03 /* Punch.swift */,
 			);
 			path = Weapons;
 			sourceTree = "<group>";

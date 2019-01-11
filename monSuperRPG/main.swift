@@ -8,9 +8,9 @@
 
 func convertIntoInt(value: String) -> Int {
     if Int(value) != nil {
-        return(Int(value)!)
+        return Int(value)!
     }
-    return(-1)
+    return -1
 }
 
 let game = Game()

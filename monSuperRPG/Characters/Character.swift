@@ -41,7 +41,7 @@ class Character {
         if !self.isAlive() {
             message += " => Ce personnage est mort"
         }
-        return(message)
+        return message
     }
     
     func attack(defender: Character) {
@@ -64,9 +64,9 @@ class Character {
     
     func isAlive() -> Bool {
         if life <= 0 {
-            return(false)
+            return false
         } else {
-            return(true)
+            return true
         }
     }
 }

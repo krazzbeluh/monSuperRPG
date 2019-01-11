@@ -23,11 +23,7 @@ class Team {
                 alive = true
             }
         }
-        if alive == true {
-            return(true)
-        } else {
-            return(false)
-        }
+        return alive
     }
     
     func getStatus() -> String {
@@ -39,6 +35,6 @@ class Team {
         } else {
             message += "L'équipe est morte, \(playerName) est éliminé\n"
         }
-        return(message)
+        return message
     }
 }

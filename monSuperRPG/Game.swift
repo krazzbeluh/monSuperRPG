@@ -79,39 +79,38 @@ class Game {
         }
     }
     
-    func attack(player: Int, defender: Int, target: Int, attacker: Int) -> Int {
+    func attack(player: Int, defender: Int, target: Int, attacker: Int) -> Bool {
 //        verifying given attributes
         if player > players - 1 {
-            return(2)
+            return false
         }
         
         if defender > players - 1 {
-            return(3)
+            return false
         }
         
         if target - 1 <= teams[defender].characters.count {
             if (teams[defender].characters[target].life <= 0) {
-                return 4
+                return false
             }
         } else {
-            return(4)
+            return false
         }
         
         if attacker - 1 <= teams[player].characters.count {
             if (teams[player].characters[attacker].life <= 0) {
-                return(5)
+                return false
             }
         } else {
-            return(5)
+            return false
         }
         
 //        making attack
         teams[player].characters[attacker].attack(defender: teams[defender].characters[target])
         if (teams[defender].characters[target].life <= 0) {
             teams[defender].characters[target].life = 0
-            return(1)
         }
-        return(0)
+        return true
     }
     
     func getStatus() -> String {
@@ -125,10 +124,10 @@ class Game {
     
     func start() {
         var playerTurn = 0
-        while searchWinner() == -1 {
+        while alivePlayers() > 1 {
             
             let player = playerTurn
-            let result: Int
+            let turnCompleted: Bool
             
             if teams[player].isAlive() {
                 print("\(teams[player].playerName), quel personnage voulez-vous utiliser ?")
@@ -271,33 +270,26 @@ class Game {
                     }
                     target = choice
                 }
-                result = attack(player: player, defender: defender, target: target, attacker: attacker)
-                switch result {
-                case 0:
+                turnCompleted = attack(player: player, defender: defender, target: target, attacker: attacker)
+                switch turnCompleted {
+                case true:
                     if teams[player].characters[attacker] is Mage {
                         print("\(teams[player].playerName) soigne \(defender) qui récupère \(teams[player].characters[attacker].weapon.damage) PVs grâce au mage \(teams[player].characters[attacker].name)")
                     } else {
                         print("\(teams[player].playerName) inflige \(teams[player].characters[attacker].weapon.damage) dégats à \(teams[defender].characters[target].name) avec la précieuse aide de \(teams[player].characters[attacker].name) et de son \(teams[player].characters[attacker].weapon.name)")
+                        if !teams[defender].characters[target].isAlive() {
+                            print("\n\(teams[player].characters[attacker].name) a tué \(teams[defender].characters[target].name)")
+                        }
                     }
-                case 1:
-                    print("\(teams[player].characters[attacker].name) a tué \(teams[defender].characters[target].name)")
-                case 2:
-                    print("ERREUR : Le joueur \(player + 1) n'existe pas")
-                case 3:
-                    print("ERREUR : Le joueur \(defender + 1) n'existe pas")
-                case 4:
-                    print("ERREUR : La cible spécifiée n'existe pas ou est déjà morte")
-                case 5:
-                    print("ERREUR : L'attaquant spécifié n'existe pas ou est déjà mort")
                 default:
-                    print("ERREUR : Erreur inconnue")
+                    print("ERREUR : Au moins l'une des entrées n'est pas valide")
                 }
             } else {
-                result = 0
+                turnCompleted = true
                 print("\(teams[player].playerName) est éliminé, joueur suivant.")
             }
             //    switching player if there's no error
-            if (result <= 1) {
+            if turnCompleted {
                 playerTurn += 1
                 if playerTurn > players - 1 {
                     playerTurn = 0
@@ -308,32 +300,24 @@ class Game {
         }
         print("Partier terminée !")
         
-        let result = searchWinner()
-        switch result {
-        case -2:
-            print("Wow tout le monde est mort... Moi-même, je ne savais pas que c'était possible dans ce tour par tour")
-        case -1:
-            print("Il y a plus d'une équipe en vie... Aidez-moi, je suis perdu")
-        default:
-            print("Le vainqueur est l'\(teams[result].getStatus())")
+        for i in 0 ... players - 1 {
+            if teams[i].isAlive() {
+                print("Le vainqueur est \(teams[i].playerName) ! \n\n\(teams[i].getStatus())")
+            }
         }
     }
     
     
-    func searchWinner() -> Int {
-        var lastAlive = -2
+    
+    
+    func alivePlayers() -> Int {
+        var alivePlayers = 0
         for i in 0 ... players - 1 {
             if teams[i].isAlive() {
-                if lastAlive == -2 {
-                    lastAlive = i
-                } else {
-                    lastAlive = -1
-                }
+                alivePlayers += 1
             }
         }
-//          -1 -> there are more than 1 alive player
-//          -2 -> everybody is dead (impossible)
-//          x > 0 -> the winner's player ID
-        return(lastAlive)
+        
+        return alivePlayers
     }
 }
