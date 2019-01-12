@@ -8,6 +8,7 @@
 
 import Foundation
 class Character {
+//    this class is the ch  aracter object. It contains all the pameters used to regulate the game. life is the PVs remaining to the character, maxLife is the PVs max the character can have, name is the character's name and weapon is the weapon (it corresponds to the number of damage the character will inflict to his ennemy
     var life: Int
     let maxLife: Int
     let name: String
@@ -23,6 +24,7 @@ class Character {
     }
     
     func getInfos() -> String {
+//        this method returns a String descripting the character's state.
         var message = ""
         if self is Colossus {
             message += "Colosse"
@@ -45,6 +47,8 @@ class Character {
     }
     
     func attack(defender: Character) {
+//        this method is the attack action. It substract the Weapon.damage to the ennemy (defender) life.
+//        if attacker is a Mage, it adds the Weapon.damage (corresponding to the PVs gain) to an allied character
         if (self.life > 0) {
             if self is Mage {
                 defender.life += self.weapon.damage
@@ -63,6 +67,7 @@ class Character {
     }
     
     func isAlive() -> Bool {
+//        this method returns a Bool corresponding to the character's state (true if character is alive)
         if life <= 0 {
             return false
         } else {
@@ -70,3 +75,5 @@ class Character {
         }
     }
 }
+
+//All other class in this folder are different characters types and are constructed by the Character class

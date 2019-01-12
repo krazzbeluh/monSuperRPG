@@ -8,6 +8,9 @@
 
 import Foundation
 class Game {
+//    Game class is the class which controls the game. It decides by itself if the game is terminated or not.
+    
+//    teams contains all the teams. Number of teams is the number of players. players contains the number of players in the game
     var teams = [Team]()
     let players: Int
     
@@ -80,6 +83,7 @@ class Game {
     }
     
     func attack(player: Int, defender: Int, target: Int, attacker: Int) -> Bool {
+//        this method makes the character attack. It calls an other method attack() in Characters class. This method is just a way to make the attack easier by giving just 4 Index (player, defendern, target and attacker)
 //        verifying given attributes
         if player > players - 1 {
             return false
@@ -114,6 +118,7 @@ class Game {
     }
     
     func getStatus() -> String {
+//        this method is called at the end of turn and return the game status (number of teams, are they dead ?, ...). It calls the method Team.getStatus() which return the team status
         var message = "\n"
         for i in 0 ... players - 1 {
             message += "\n" + teams[i].getStatus()
@@ -123,6 +128,7 @@ class Game {
     }
     
     func start() {
+//        this method is the main method. It controls the game with a loop finishing when there is only one alive team in game
         var playerTurn = 0
         while alivePlayers() > 1 {
             
@@ -311,6 +317,7 @@ class Game {
     
     
     func alivePlayers() -> Int {
+//        this method returns the number of alive players. It calls the method Team.isAlive() which returns a bool (true if the team is alive)
         var alivePlayers = 0
         for i in 0 ... players - 1 {
             if teams[i].isAlive() {

@@ -7,12 +7,14 @@
 //
 
 func convertIntoInt(value: String) -> Int {
+//    this function is just called to convert a String into an Int.
     if Int(value) != nil {
         return Int(value)!
     }
     return -1
 }
 
+// creating a new game and starting it
 let game = Game()
 game.start()
 
