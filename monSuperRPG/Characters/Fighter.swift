@@ -13,4 +13,8 @@ class Fighter: Character {
         super.init(maxLife: 100, weapon: sword, name: name)
     }
     
+    override func getCharacterName() -> String {
+        return "Simple Combattant"
+    }
+    
 }

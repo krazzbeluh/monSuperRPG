@@ -12,4 +12,8 @@ class Colossus: Character {
         let punch = Punch()
         super.init(maxLife: 500, weapon: punch, name: name)
     }
+    
+    override func getCharacterName() -> String {
+        return "Colosse"
+    }
 }

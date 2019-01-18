@@ -12,4 +12,8 @@ class Dwarf: Character {
         let axe = Axe()
         super.init(maxLife: 30, weapon: axe, name: name)
     }
+    
+    override func getCharacterName() -> String {
+        return "Nain"
+    }
 }

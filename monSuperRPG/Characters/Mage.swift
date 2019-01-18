@@ -12,4 +12,8 @@ class Mage: Character {
         let spellOn = SpellOn()
         super.init(maxLife: 50, weapon: spellOn, name: name)
     }
+    
+    override func getCharacterName() -> String {
+         return "Mage"
+    }
 }

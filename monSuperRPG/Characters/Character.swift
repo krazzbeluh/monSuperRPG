@@ -23,20 +23,13 @@ class Character {
         self.weapon = weapon
     }
     
+    func getCharacterName() -> String {
+        preconditionFailure("This method must be overridden")
+    }
+    
     func getInfos() -> String {
 //        this method returns a String descripting the character's state.
-        var message = ""
-        if self is Colossus {
-            message += "Colosse"
-        } else if self is Dwarf {
-            message += "Nain"
-        } else if self is Fighter {
-            message += "Simple Combattant"
-        } else if self is Mage {
-            message += "Mage"
-        } else {
-            message += "Type inconnu"
-        }
+        var message = getCharacterName()
         
         message += ": \(name) => \(life) / \(maxLife) PV | Arme : \(weapon.name)"
         
@@ -46,19 +39,19 @@ class Character {
         return message
     }
     
-    func attack(defender: Character) {
-//        this method is the attack action. It substract the Weapon.damage to the ennemy (defender) life.
+    func attack(characterTarget: Character) {
+//        this method is the attack action. It substract the Weapon.damage to the ennemy (characterTarget) life.
 //        if attacker is a Mage, it adds the Weapon.damage (corresponding to the PVs gain) to an allied character
         if (self.life > 0) {
             if self is Mage {
-                defender.life += self.weapon.damage
-                if defender.life > defender.maxLife {
-                    defender.life = defender.maxLife
+                characterTarget.life += self.weapon.damage
+                if characterTarget.life > characterTarget.maxLife {
+                    characterTarget.life = characterTarget.maxLife
                 }
             } else {
-                defender.life -= self.weapon.damage * 5
-                if defender.life <= 0 {
-                    defender.life = 0
+                characterTarget.life -= self.weapon.damage * 5
+                if characterTarget.life <= 0 {
+                    characterTarget.life = 0
                 }
             }
         } else {
@@ -68,11 +61,7 @@ class Character {
     
     func isAlive() -> Bool {
 //        this method returns a Bool corresponding to the character's state (true if character is alive)
-        if life <= 0 {
-            return false
-        } else {
-            return true
-        }
+        return life > 0
     }
 }
 
