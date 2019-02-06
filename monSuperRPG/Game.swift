@@ -15,6 +15,8 @@ class Game {
     let players: Int
     
     init() {
+        var usedNames = [String]()
+        
         print("Combien de joueurs serez-vous ?")
         var choice = 0
 //        playing alone isn't allowed
@@ -59,6 +61,12 @@ class Game {
                         while name == ""{
                             if let line = readLine() {
                                 name = line
+                            }
+                            if usedNames.contains(name) {
+                                name = ""
+                                print("Ce nom est déjà utilisé. Veuillez en choisir un autre.")
+                            } else {
+                                usedNames.append(name)
                             }
                         }
                 
