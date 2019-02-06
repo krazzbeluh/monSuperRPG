@@ -62,6 +62,7 @@ class Game {
                             if let line = readLine() {
                                 name = line
                             }
+                            // Checking if character name is already used
                             if usedNames.contains(name) {
                                 name = ""
                                 print("Ce nom est déjà utilisé. Veuillez en choisir un autre.")
